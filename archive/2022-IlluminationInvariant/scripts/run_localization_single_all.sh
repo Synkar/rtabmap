@@ -8,7 +8,7 @@ fi
 INPUT=$1
 OUTPUT=$2
 
-DETECTOR=(0 1 6 7 9 14 11 111)
+DETECTOR=(11)
 
 for d in "${DETECTOR[@]}"
 do
