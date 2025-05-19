@@ -13,8 +13,7 @@ source rtabmap_latest.bash
 
 [ ! -d "$OUTPUT" ] && mkdir $OUTPUT
 [ ! -d "$OUTPUT/$TYPE" ] && mkdir $OUTPUT/$TYPE
-# 'map_190321-164651.db' 'map_190321-172717.db' 'map_190321-175428.db' 'map_190321-182709.db' 'map_190321-185608.db' 'map_190321-193556.db'
-DATABASES=( 'map_190321-164651.db' 'map_190321-172717.db' 'map_190321-175428.db' 'map_190321-182709.db' 'map_190321-185608.db' 'map_190321-193556.db' )
+DATABASES=( 'dabi_09_58_floor0-5.2.1-2025-05-15.db' 'dabi_12_25_floor0-5.2.1-2025-05-16.db' 'dabi_15_12_floor0-5.2.1-2025-05-16.db' 'dabi_17_11_floor0-5.2.1-2025-05-16.db')
 
 PARAMS="--Kp/DetectorStrategy $TYPE --Vis/FeatureType $TYPE"
 
@@ -24,7 +23,7 @@ then
   PARAMS="--Vis/CorNNDR 0.8 $PARAMS"
 else
   # float descriptors
-  PARAMS="--Vis/CorNNDR 0.6 $PARAMS"
+  PARAMS="--Vis/CorNNDR 0.8 $PARAMS"
 fi
 
 if [ $TYPE -eq 111 ] 
@@ -35,7 +34,7 @@ fi
 echo $PARAMS
 for db in "${DATABASES[@]}"
 do
-  rtabmap-reprocess --RGBD/MarkerDetection false --RGBD/ProximityBySpace true --RGBD/LocalRadius 1 --Mem/InitWMWithAllNodes true --Rtabmap/TimeThr 0 --Mem/UseOdomFeatures false --Optimizer/GravitySigma 0.1 --Mem/UseOdomGravity true --RGBD/OptimizeFromGraphEnd false --Mem/DepthAsMask false --RGBD/OptimizeMaxError 0 --RGBD/ProximityOdomGuess false --Vis/MaxFeatures 1000 --Kp/MaxFeatures 400 --Vis/EpipolarGeometryVar 0.1 --Vis/EstimationType 1 --Vis/MinInliers 20 --Rtabmap/MaxRetrieved 2 --Optimizer/Iterations 20 --Mem/CompressionParallelized true --Kp/Parallelized true --Kp/MaxDepth 0 --Kp/BadSignRatio 0.2 --BRIEF/Bytes 32 --Kp/ByteToFloat true --SURF/HessianThreshold 100 --SIFT/ContrastThreshold 0.02 --BRISK/Thresh 10 --SuperPoint/ModelPath superpoint_v1.pt --Rtabmap/PublishRAMUsage true --ORB/EdgeThreshold 19 --ORB/ScaleFactor 2 --ORB/NLevels 3 --Db/TargetVersion "" --Icp/CorrespondenceRatio 0.1 --RGBD/MaxOdomCacheSize 0 --uwarn $PARAMS $INPUT/$db $OUTPUT/$TYPE/$db
+  rtabmap-reprocess --RGBD/MarkerDetection true --RGBD/ProximityBySpace true --RGBD/LocalRadius 10 --Mem/InitWMWithAllNodes true --Rtabmap/TimeThr 0 --Mem/UseOdomFeatures true --Optimizer/GravitySigma 0.0 --Mem/UseOdomGravity false --RGBD/OptimizeFromGraphEnd false --Mem/IncrementalMemory true --Mem/DepthAsMask true --RGBD/OptimizeMaxError 0 --RGBD/ProximityOdomGuess false --Vis/MaxFeatures 1500 --Kp/MaxFeatures 750 --Vis/EpipolarGeometryVar 0.1 --Vis/EstimationType 1 --Vis/MinInliers 30 --Rtabmap/MaxRetrieved 2 --Optimizer/Iterations 30 --Mem/CompressionParallelized true --Kp/Parallelized true --Kp/MaxDepth 0 --Kp/BadSignRatio 0.2 --BRIEF/Bytes 32 --Kp/ByteToFloat false --SURF/HessianThreshold 100 --SIFT/ContrastThreshold 0.02 --BRISK/Thresh 10 --SuperPoint/ModelPath superpoint.pt --Rtabmap/PublishRAMUsage true --ORB/EdgeThreshold 19 --ORB/ScaleFactor 2 --ORB/NLevels 3 --Db/TargetVersion "" --Icp/CorrespondenceRatio 0.1 --RGBD/MaxOdomCacheSize 10 --uwarn $PARAMS $INPUT/$db $OUTPUT/$TYPE/$db
   rtabmap-detectMoreLoopClosures --uwarn $OUTPUT/$TYPE/$db
 done
 
