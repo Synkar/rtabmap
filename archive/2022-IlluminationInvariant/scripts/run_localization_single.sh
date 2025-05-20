@@ -12,17 +12,16 @@ OUTPUT=$3
 
 source rtabmap_latest.bash
 
-# 'map_190321-164651.db' 'map_190321-172717.db' 'map_190321-175428.db' 'map_190321-182709.db' 'map_190321-185608.db' 'map_190321-193556.db' 'merged_123456.db' 'merged_135.db' 'merged_246.db' 'merged_16.db' 'merged_123456_reduced.db'
-DATABASES=('map_190321-164651.db' 'map_190321-172717.db' 'map_190321-175428.db' 'map_190321-182709.db' 'map_190321-185608.db' 'map_190321-193556.db' 'merged_123456.db' 'merged_135.db' 'merged_246.db' 'merged_16.db' 'merged_123456_reduced.db')
-# loc_190321-165128.db;loc_190321-173134.db;loc_190321-175823.db;loc_190321-183051.db;loc_190321-185950.db;loc_190321-194226.db
-LOCALIZATION_DATABASES="$INPUT/loc_190321-165128.db;$INPUT/loc_190321-173134.db;$INPUT/loc_190321-175823.db;$INPUT/loc_190321-183051.db;$INPUT/loc_190321-185950.db;$INPUT/loc_190321-194226.db"
+DATABASES=( 'dabi_09_58_floor0-5.2.1-2025-05-15.db' 'dabi_12_25_floor0-5.2.1-2025-05-16.db' 'dabi_15_12_floor0-5.2.1-2025-05-16.db' 'dabi_17_11_floor0-5.2.1-2025-05-16.db' 'merged_1234.db' 'merged_13.db' 'merged_24.db' 'merged_14.db')
+
+LOCALIZATION_DATABASES="$INPUT/dabi_9_45_floor0-5.2.1-2025-04-29.db;$INPUT/dabi_11_43_floor0-5.2.1-2025-04-29.db;$INPUT/dabi_15_15_floor0-5.2.1-2025-04-30.db;$INPUT/dabi_17_22_floor0-5.2.1-2025-05-07.db"
 
 [ ! -d "$OUTPUT/$TYPE/loc" ] && mkdir $OUTPUT/$TYPE/loc
 
 echo $PARAMS
 for db in "${DATABASES[@]}"
 do
-  rtabmap-reprocess -loc_null --Mem/IncrementalMemory false --RGBD/ProximityBySpace true --RGBD/ProximityMaxPaths 1 --Mem/LocalizationDataSaved true --Mem/BinDataKept false --RGBD/SavedLocalizationIgnored true --Kp/IncrementalFlann false --Vis/MinInliers 20 --Rtabmap/PublishRAMUsage true --RGBD/ProximityOdomGuess false --uwarn "$OUTPUT/$TYPE/$db;$LOCALIZATION_DATABASES" $OUTPUT/$TYPE/loc/loc_$db
+  rtabmap-reprocess -loc_null --Mem/IncrementalMemory false --RGBD/ProximityBySpace true --RGBD/ProximityMaxPaths 3 --Mem/LocalizationDataSaved true --Mem/BinDataKept true --RGBD/SavedLocalizationIgnored true --Kp/IncrementalFlann true --Vis/MinInliers 30 --Rtabmap/PublishRAMUsage true --RGBD/ProximityOdomGuess false --uwarn "$OUTPUT/$TYPE/$db;$LOCALIZATION_DATABASES" $OUTPUT/$TYPE/loc/loc_$db
 done
 
 

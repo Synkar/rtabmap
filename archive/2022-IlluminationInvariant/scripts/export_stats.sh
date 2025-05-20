@@ -7,7 +7,7 @@ then
 fi
 DATA=$1
 
-DETECTOR=(0 1 6 7 9 14 11 111) 
+DETECTOR=(11) 
 
 source rtabmap_latest.bash
 

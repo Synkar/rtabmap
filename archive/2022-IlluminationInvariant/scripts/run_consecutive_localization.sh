@@ -10,8 +10,8 @@ DATA=$2
 
 source rtabmap_latest.bash
 
-SOURCE=('map_190321-164651.db' 'map_190321-172717.db' 'map_190321-175428.db' 'map_190321-182709.db' 'map_190321-185608.db')
-TARGETS=($DATA/$TYPE'/map_190321-172717.db;'$DATA/$TYPE'/map_190321-175428.db;'$DATA/$TYPE'/map_190321-193556.db' $DATA/$TYPE'/map_190321-175428.db;'$DATA/$TYPE'/map_190321-182709.db;' $DATA/$TYPE'/map_190321-182709.db;'$DATA/$TYPE'/map_190321-185608.db' $DATA/$TYPE'/map_190321-185608.db;'$DATA/$TYPE'/map_190321-193556.db' $DATA/$TYPE'/map_190321-193556.db' )
+SOURCE=('dabi_09_58_floor0-5.2.1-2025-05-15.db' 'dabi_12_25_floor0-5.2.1-2025-05-16.db' 'dabi_15_12_floor0-5.2.1-2025-05-16.db')
+TARGETS=($DATA/$TYPE'/dabi_12_25_floor0-5.2.1-2025-05-16.db;'$DATA/$TYPE'/dabi_15_12_floor0-5.2.1-2025-05-16.db;'$DATA/$TYPE'/dabi_17_11_floor0-5.2.1-2025-05-16.db' $DATA/$TYPE'/dabi_15_12_floor0-5.2.1-2025-05-16.db;'$DATA/$TYPE'/dabi_17_11_floor0-5.2.1-2025-05-16.db;' $DATA/$TYPE'/dabi_17_11_floor0-5.2.1-2025-05-16.db' )
 
 
 [ ! -d "$DATA/$TYPE/consecutive_loc" ] && mkdir $DATA/$TYPE/consecutive_loc
