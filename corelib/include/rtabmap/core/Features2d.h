@@ -131,7 +131,8 @@ public:
 		kFeatureGfttDaisy=13, //new 0.20.6
 		kFeatureSurfDaisy=14,  //new 0.20.6
 		kFeaturePyDetector=15, //new 0.20.8
-		kFeatureSuperPointRpautrat=16}; // new 0.23.3
+		kFeatureSuperPointRpautrat=16, // new 0.23.3
+		kFeatureSuperPointOpenVINO=99}; 
 
 	static std::string typeName(Type type)
 	{
@@ -168,6 +169,8 @@ public:
 			return "SURF+Daisy";
 		case kFeatureSuperPointRpautrat:
 			return "SUPERPOINT-RPAUTRAT";
+		case kFeatureSuperPointOpenVINO:
+			return "SUPERPOINT_OPENVINO";
 		default:
 			return "Unknown";
 		}
