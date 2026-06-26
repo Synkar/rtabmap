@@ -949,6 +949,9 @@ class RTABMAP_CORE_EXPORT Parameters
     RTABMAP_PARAM(ImuFilter, ComplementaryDoBiasEstimation, bool,   true, "Parameter whether to do bias estimation or not.");
     RTABMAP_PARAM(ImuFilter, ComplementaryDoAdpativeGain,   bool,   true, "Parameter whether to do adaptive gain or not.");
 
+    RTABMAP_PARAM_STR(SuperPoint, OpenVINOModelPath, "", "[OpenVINO] Path to SuperPoint OpenVINO IR model (*.xml *.bin).");
+    RTABMAP_PARAM_STR(SuperPoint, OpenVINODevice, "CPU", "[OpenVINO] Target device: CPU, GPU, NPU or AUTO.");
+
 public:
     virtual ~Parameters();
 

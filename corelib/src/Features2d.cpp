@@ -47,6 +47,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef RTABMAP_TORCH
 #include "superpoint_torch/SuperPoint.h"
 #endif
+
+#ifdef RTABMAP_OPENVINO
+#include "superpoint_openvino/SuperPointOpenVINO.h"
+#endif
+
 #if defined(RTABMAP_TORCH) && defined(RTABMAP_PYTHON)
 #include "superpoint_rpautrat/SuperpointRpautrat.h"
 #endif
@@ -696,6 +701,14 @@ Feature2D * Feature2D::create(Feature2D::Type type, const ParametersMap & parame
 	}
 #endif
 
+#ifndef RTABMAP_OPENVINO
+if(type == Feature2D::kFeatureSuperPointOpenVINO)
+{
+    UWARN("SuperPoint OpenVINO feature cannot be used because RTAB-Map was not built with OpenVINO support. GFTT/ORB is used instead.");
+    type = Feature2D::kFeatureGfttOrb;
+}
+#endif
+
 	Feature2D * feature2D = 0;
 	switch(type)
 	{
@@ -740,6 +753,11 @@ case Feature2D::kFeatureSuperPointTorch:
 #if defined(RTABMAP_TORCH) && defined(RTABMAP_PYTHON)
 case Feature2D::kFeatureSuperPointRpautrat:
     feature2D = new SuperPointRpautrat(parameters);
+    break;
+#endif
+#ifdef RTABMAP_OPENVINO
+case Feature2D::kFeatureSuperPointOpenVINO:
+	feature2D = new SuperPointOpenVINO(parameters);
     break;
 #endif
 	case Feature2D::kFeatureSurfFreak:
