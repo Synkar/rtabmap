@@ -223,6 +223,33 @@ IF(TORCH_FOUND)
 	)
 ENDIF(TORCH_FOUND)
 
+IF(WITH_OPENVINO AND OpenVINO_FOUND)
+    ADD_DEFINITIONS(-DRTABMAP_OPENVINO)
+
+    SET(LIBRARIES
+        ${LIBRARIES}
+        openvino::runtime
+    )
+
+    SET(RTABMAP_OPENVINO_SUPERPOINT_SRC
+        ${CMAKE_CURRENT_SOURCE_DIR}/superpoint_openvino/SuperPointOpenVINO.cpp
+    )
+
+    IF(EXISTS ${RTABMAP_OPENVINO_SUPERPOINT_SRC})
+        SET(SRC_FILES
+            ${SRC_FILES}
+            superpoint_openvino/SuperPointOpenVINO.cpp
+        )
+
+        SET(INCLUDE_DIRS
+            ${CMAKE_CURRENT_SOURCE_DIR}/superpoint_openvino
+            ${INCLUDE_DIRS}
+        )
+    ELSE()
+        MESSAGE(WARNING "WITH_OPENVINO=ON, but superpoint_openvino/SuperPointOpenVINO.cpp was not found. OpenVINO runtime will be linked, but the SuperPoint OpenVINO backend source will not be compiled.")
+    ENDIF()
+ENDIF()
+
 IF(WITH_PYTHON AND Python3_FOUND)
 	SET(PUBLIC_LIBRARIES
 		${PUBLIC_LIBRARIES}
